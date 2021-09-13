@@ -1,0 +1,109 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Atlas",
+		"description": "This documentation is about Atlas API",
+		"version": "1.0.0",
+		"contact": {
+			"email": "rafa@email.com"
+		}
+	},
+	"paths": {
+		"/users": {
+			"post": {
+				"tags": [
+					"User"
+				],
+				"summary": "Create an user",
+				"description": "Create a new User",
+				"requestBody": {
+					"content": {
+						"application/json": {
+							"schema": {
+								"type": "object",
+								"properties": {
+									"name": {
+										"type": "string"
+									},
+									"email": {
+										"type": "string"
+									}
+								},
+								"example": {
+									"name": "Name sample",
+									"email": "sample@sample.com"
+								}
+							}
+						}
+					}
+				},
+				"responses": {
+					"201": {
+						"description": "Created"
+					},
+					"400": {
+						"description": "Email Already Taken"
+					}
+				}
+			},
+			"get": {
+				"tags": [
+					"User"
+				],
+				"summary": "List all Users",
+				"description": "List all Users",
+				"parameters": [
+					{
+						"name": "user_id",
+						"in": "header",
+						"description": "Check if user exists and if admin",
+						"required": true,
+						"schema": {
+							"type": "string"
+						},
+						"style": "simple"
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Success",
+						"content": {
+							"application/json": {
+								"schema": {
+									"type": "array",
+									"items": {
+										"type": "object",
+										"properties": {
+											"id": {
+												"type": "string",
+												"format": "uuid"
+											},
+											"name": {
+												"type": "string"
+											},
+											"email": {
+												"type": "string"
+											},
+											"created_at": {
+												"type": "string",
+												"format": "date"
+											},
+											"updated_at": {
+												"type": "string",
+												"format": "date"
+											}
+										}
+									}
+								}
+							}
+						}
+					},
+					"400": {
+						"description": "User does not exit or not admin"
+					}
+				}
+				
+			}
+		}
+	}
+}
